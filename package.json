@@ -15,7 +15,8 @@
     "watch": "tsc -w -p tsconfig.module.json",
     "lint": "eslint src",
     "lint:fix": "eslint src --fix",
-    "example": "cd example; node serve.js"
+    "example": "cd example; node serve.js",
+    "release": "yarn build && standard-version"
   },
   "engines": {
     "node": ">=10"
