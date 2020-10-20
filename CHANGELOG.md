@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.4](https://github.com/fragsalat/monteur/compare/v0.1.3...v0.1.4) (2020-10-20)
+
+
+### Features
+
+* Export HostFragment for better type support ([a4d73ce](https://github.com/fragsalat/monteur/commit/a4d73cec4f860f407a05307ecb263d18ac9515cc))
+
 ### [0.1.3](https://github.com/fragsalat/monteur/compare/v0.1.2...v0.1.3) (2020-10-20)
 
 
