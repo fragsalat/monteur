@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.2](https://github.com/fragsalat/monteur/compare/v0.1.1...v0.1.2) (2020-10-20)
+
+
+### Bug Fixes
+
+* **build:** esnext module build was to modern for react-scripts ([eb14938](https://github.com/fragsalat/monteur/commit/eb14938e6562d120b8edd7e6455c3643939e8985))
+
 ### 0.1.1 (2020-10-20)
 
 
