@@ -1,8 +1,7 @@
-import { IEventBus } from './i-event-bus';
+import { IEventBus, Callback } from './i-event-bus';
 
 export class DomEventBus implements IEventBus {
-
-  private events: {[eventName: string]: Function[]};
+  private events: { [eventName: string]: Callback[] };
 
   constructor(private container: Element) {
     this.events = {};
@@ -10,17 +9,18 @@ export class DomEventBus implements IEventBus {
 
   private handleEvent = (event: Event): void => {
     if (!(event.type in this.events)) {
-      console.warn(`Potential memory leak. A listener for '${event.type}' is still bound while there is no callback registered`);
+      console.warn(
+        `Potential memory leak. A listener for '${event.type}' is still bound while there is no callback registered`
+      );
     }
 
     this.events[event.type].forEach((callback) => {
       callback((event as CustomEvent).detail);
     });
-  }
+  };
 
   public waitForEvent(eventName: string): Promise<any> {
-    return new Promise(resolve => {
-      let timeout: number;
+    return new Promise((resolve) => {
       const removeListener = () => {
         this.removeEventListener(eventName, handler);
         clearTimeout(timeout);
@@ -31,19 +31,19 @@ export class DomEventBus implements IEventBus {
       };
       this.addEventListener(eventName, handler);
       // Unbind listener when event is not sent
-      timeout = setTimeout(() => {
+      const timeout = setTimeout(() => {
         removeListener();
         console.warn(`Event ${eventName} was never sent`);
       }, 5000);
     });
   }
 
-  public dispatchEvent(eventName: string, payload?: any|any[]): void {
-    const event = new CustomEvent(eventName, {detail: payload, bubbles: false});
+  public dispatchEvent(eventName: string, payload?: unknown): void {
+    const event = new CustomEvent(eventName, { detail: payload, bubbles: false });
     this.container.dispatchEvent(event);
   }
 
-  public addEventListener(eventName: string, callback: (payload: any|any[]) => void): void {
+  public addEventListener(eventName: string, callback: Callback): void {
     if (eventName in this.events) {
       this.events[eventName].push(callback);
     } else {
@@ -52,7 +52,7 @@ export class DomEventBus implements IEventBus {
     }
   }
 
-  public removeEventListener(eventName: string, callback: (payload: any|any[]) => void): void {
+  public removeEventListener(eventName: string, callback: Callback): void {
     // Remove event listener from active list
     const index = Array.isArray(this.events[eventName]) && this.events[eventName].indexOf(callback);
     if (index !== false && index >= 0) {
@@ -68,9 +68,9 @@ export class DomEventBus implements IEventBus {
     }
   }
 
-  public destroy() {
+  public destroy(): void {
     Object.keys(this.events).forEach((eventName: string) => {
-        this.container.removeEventListener(eventName, this.handleEvent, true);
+      this.container.removeEventListener(eventName, this.handleEvent, true);
     });
 
     this.events = {};

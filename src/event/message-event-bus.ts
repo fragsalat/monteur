@@ -1,16 +1,15 @@
-import { IEventBus } from './i-event-bus';
+import { IEventBus, Callback } from './i-event-bus';
 
-type Payload = any|any[]
+type Payload = any | any[];
 
 type Message = {
-  name: string,
-  fragmentId: number,
-  payload: Payload
+  name: string;
+  fragmentId: number;
+  payload: Payload;
 };
 
 export class MessageEventBus implements IEventBus {
-
-  private events: {[eventName: string]: Function[]};
+  private events: { [eventName: string]: Callback[] };
 
   /**
    * A window can only bind listeners to itself but post to other windows.
@@ -19,7 +18,7 @@ export class MessageEventBus implements IEventBus {
    * @param writeWindow Will be iframe.contentWindow or window.top
    * @param fragmentId Used to identify identify fragments on host window
    */
-  constructor(public fragmentId: number, private readWindow: Window, private writeWindow: WindowProxy|null) {
+  constructor(public fragmentId: number, private readWindow: Window, private writeWindow: WindowProxy | null) {
     this.events = {};
     this.readWindow.addEventListener('message', this.handleMessage);
   }
@@ -34,18 +33,17 @@ export class MessageEventBus implements IEventBus {
       return;
     }
     if (event.data.name in this.events) {
-      this.events[event.data.name].forEach(callback => callback(event.data.payload));
+      this.events[event.data.name].forEach((callback) => callback(event.data.payload));
     }
-  }
+  };
 
   /**
    * Wait a specific time for an event to be posted on readWindow
    * @param eventName
    * @param timeoutMs
    */
-  public waitForEvent(eventName: string, timeoutMs: number = 5000): Promise<any> {
-    return new Promise(resolve => {
-      let timeout: number;
+  public waitForEvent(eventName: string, timeoutMs = 5000): Promise<any> {
+    return new Promise((resolve) => {
       const removeListener = () => {
         this.removeEventListener(eventName, handler);
         clearTimeout(timeout);
@@ -56,26 +54,26 @@ export class MessageEventBus implements IEventBus {
       };
       this.addEventListener(eventName, handler);
       // Unbind listener when event is not sent
-      timeout = setTimeout(() => {
+      const timeout = setTimeout(() => {
         removeListener();
         console.warn(`Event ${eventName} was never sent`);
       }, timeoutMs);
     });
   }
 
-  public dispatchEvent(eventName: string, payload?: any|any[]): void {
+  public dispatchEvent(eventName: string, payload?: unknown): void {
     if (!this.writeWindow) {
       throw new Error('Write window is not defined');
     }
-    this.writeWindow.postMessage({name: eventName, fragmentId: this.fragmentId, payload}, '*');
+    this.writeWindow.postMessage({ name: eventName, fragmentId: this.fragmentId, payload }, '*');
   }
 
-  public addEventListener(eventName: string, callback: (payload: any|any[]) => void): void {
+  public addEventListener(eventName: string, callback: Callback): void {
     this.events[eventName] = this.events[eventName] || [];
     this.events[eventName].push(callback);
   }
 
-  public removeEventListener(eventName: string, callback: (payload: any|any[]) => void): void {
+  public removeEventListener(eventName: string, callback: Callback): void {
     // Remove event listener from active list
     const index = Array.isArray(this.events[eventName]) && this.events[eventName].indexOf(callback);
     if (index !== false && index >= 0) {
@@ -87,7 +85,7 @@ export class MessageEventBus implements IEventBus {
     }
   }
 
-  public destroy() {
+  public destroy(): void {
     this.events = {};
     this.readWindow.removeEventListener('message', this.handleMessage);
   }

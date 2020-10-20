@@ -1,8 +1,10 @@
+import { IEventBus } from '../event/i-event-bus';
 
 export interface IFragmentStatic {
-  initialize(defaultOptions: any, initCb: (config: any) => void|Promise<void>): Promise<void>;
+  new (): IFragment;
+  isFragment(): boolean;
 }
 
-export interface IFragment {
-
+export interface IFragment extends IEventBus {
+  initialize(defaultOptions: unknown, initCb: (config: unknown) => void | Promise<void>): Promise<void>;
 }
