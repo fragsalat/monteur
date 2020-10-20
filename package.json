@@ -16,7 +16,8 @@
     "lint": "eslint src",
     "lint:fix": "eslint src --fix",
     "example": "cd example; node serve.js",
-    "release": "yarn build && standard-version"
+    "prepare-release": "yarn build && standard-version",
+    "publish-release": "git push --follow-tags origin main && npm publish"
   },
   "engines": {
     "node": ">=10"
@@ -29,6 +30,7 @@
     "eslint-plugin-eslint-comments": "^3.2.0",
     "eslint-plugin-functional": "^3.0.2",
     "eslint-plugin-import": "^2.22.0",
+    "eslint-plugin-prettier": "^3.1.4",
     "prettier": "^2.1.2",
     "standard-version": "^9.0.0",
     "ts-node": "^9.0.0",
@@ -67,8 +69,5 @@
     "singleQuote": true,
     "printWidth": 120,
     "tabWidth": 2
-  },
-  "dependencies": {
-    "eslint-plugin-prettier": "^3.1.4"
   }
 }
