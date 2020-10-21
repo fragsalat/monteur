@@ -39,6 +39,7 @@
   "files": [
     "dist/main",
     "dist/module",
+    "src",
     "!**/*.spec.*",
     "!**/*.json",
     "CHANGELOG.md",
