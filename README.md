@@ -23,12 +23,12 @@ For more information read the howto for this method <small>(coming soon)</small>
 *Example based on React*
 
 Install monteur
-```
+```bash
 npm i monteur
 ```
 
 Create wrapper component to render fragment
-```
+```jsx
 import React from 'react';
 import {Host} from 'monteur';
 
@@ -55,7 +55,7 @@ export function SomeMicroFrontend(props) {
 ```
 
 Use the fragment component
-```
+```jsx
 import React from 'react';
 import {SomeMicroFrontend} from './SomeMicroFrontend.jsx';
 
@@ -78,12 +78,12 @@ export function App() {
 *Example based on React*
 
 Install monteur
-```
+```bash
 npm i monteur
 ```
 
 Initialize fragment and bootstrap application.
-```
+```jsx
 import React from 'react';
 import ReactDOM from 'react-dom';
 import {Fragment} from 'monteur';
