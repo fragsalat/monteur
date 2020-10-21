@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.7](https://github.com/fragsalat/monteur/compare/v0.1.6...v0.1.7) (2020-10-21)
+
+
+### Bug Fixes
+
+* **build:** Include src to make source maps working ([31cadb5](https://github.com/fragsalat/monteur/commit/31cadb5f7fdc805d5f2788dc6aef262140ab2ea6))
+
 ### [0.1.6](https://github.com/fragsalat/monteur/compare/v0.1.5...v0.1.6) (2020-10-21)
 
 ### [0.1.5](https://github.com/fragsalat/monteur/compare/v0.1.4...v0.1.5) (2020-10-21)
