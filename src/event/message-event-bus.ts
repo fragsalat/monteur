@@ -27,13 +27,20 @@ export class MessageEventBus implements IEventBus {
    * Handle message events on readWindow and dispatch the payload to all listeners
    * @param event
    */
-  private handleMessage = (event: MessageEvent<Message>) => {
-    // Multiple fragments may posting to the host, check if this event should be handled here
-    if (this.fragmentId && this.fragmentId !== event.data.fragmentId) {
+  private handleMessage = (event: MessageEvent<string>) => {
+    let data: Message;
+    try {
+      data = JSON.parse(event.data);
+    } catch (e) {
+      // This event is likely not from monteur
       return;
     }
-    if (event.data.name in this.events) {
-      this.events[event.data.name].forEach((callback) => callback(event.data.payload));
+    // Multiple fragments may posting to the host, check if this event should be handled here
+    if (this.fragmentId && this.fragmentId !== data.fragmentId) {
+      return;
+    }
+    if (data.name in this.events) {
+      this.events[data.name].forEach((callback) => callback(data.payload));
     }
   };
 
@@ -65,7 +72,8 @@ export class MessageEventBus implements IEventBus {
     if (!this.writeWindow) {
       throw new Error('Write window is not defined');
     }
-    this.writeWindow.postMessage({ name: eventName, fragmentId: this.fragmentId, payload }, '*');
+    const message = JSON.stringify({ name: eventName, fragmentId: this.fragmentId, payload });
+    this.writeWindow.postMessage(message, '*');
   }
 
   public addEventListener(eventName: string, callback: Callback): void {
