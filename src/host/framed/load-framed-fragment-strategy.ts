@@ -11,8 +11,7 @@ export class LoadFramedFragmentStrategy implements ILoadFragmentStrategy {
     const frame = document.createElement('iframe');
     frame.style.width = '100%';
     frame.style.border = 'none';
-    frame.style.overflowY = 'hidden';
-    frame.scrolling = 'no';
+    frame.scrolling = 'auto';
     frame.name = fragmentId.toString(10);
     frame.src = url;
     target.appendChild(frame);

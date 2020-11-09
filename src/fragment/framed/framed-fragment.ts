@@ -10,6 +10,9 @@ export const FramedFragment: IFragmentStatic = class extends EventAware implemen
   }
 
   public async initialize(defaultOptions: unknown, initCb: (config: unknown) => void | Promise<void>): Promise<void> {
+    // Remove unnecessary horizontal scroll bar as iframe height will be scaled with the content
+    document.body.style.overflowY = 'hidden';
+
     const fragmentId = parseInt(window.name, 10);
     this.event = new MessageEventBus(fragmentId, window, window.top);
 
