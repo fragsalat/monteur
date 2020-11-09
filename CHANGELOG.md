@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.9](https://github.com/fragsalat/monteur/compare/v0.1.8...v0.1.9) (2020-11-09)
+
+
+### Bug Fixes
+
+* **event:** Serialize event payload as json to prevent cloning issues ([f3fb7d4](https://github.com/fragsalat/monteur/commit/f3fb7d418158ce6aad0e49475d5a8ade7a3d702b))
+* **framed:** Fixed vertical and horizontal scrolling ([579484c](https://github.com/fragsalat/monteur/commit/579484cc790bd8ec587e7cab5c5dbc359dea3086))
+
 ### [0.1.8](https://github.com/fragsalat/monteur/compare/v0.1.7...v0.1.8) (2020-11-06)
 
 ### [0.1.7](https://github.com/fragsalat/monteur/compare/v0.1.6...v0.1.7) (2020-10-21)
