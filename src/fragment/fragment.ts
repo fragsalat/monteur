@@ -19,18 +19,34 @@ class FragmentWrapper implements IFragment {
   }
 
   addEventListener(name: string, callback: Callback): void {
+    if (!fragment) {
+      console.warn('Fragment is not initialized yet');
+      return;
+    }
     fragment.addEventListener(name, callback);
   }
 
   removeEventListener(name: string, callback: Callback): void {
+    if (!fragment) {
+      console.warn('Fragment is not initialized yet');
+      return;
+    }
     fragment.removeEventListener(name, callback);
   }
 
   dispatchEvent(name: string, payload?: unknown): void {
+    if (!fragment) {
+      console.warn('Fragment is not initialized yet');
+      return;
+    }
     fragment.dispatchEvent(name, payload);
   }
 
   waitForEvent(name: string): Promise<any> {
+    if (!fragment) {
+      console.warn('Fragment is not initialized yet');
+      return Promise.reject();
+    }
     return fragment.waitForEvent(name);
   }
 
