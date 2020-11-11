@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.10](https://github.com/fragsalat/monteur/compare/v0.1.9...v0.1.10) (2020-11-11)
+
+
+### Bug Fixes
+
+* **framed:** Fix calling event functions without initialized fragment ([a6ed4f1](https://github.com/fragsalat/monteur/commit/a6ed4f1df03f7da8e7d7e2e3293edb0dc5ec531d))
+
 ### [0.1.9](https://github.com/fragsalat/monteur/compare/v0.1.8...v0.1.9) (2020-11-09)
 
 
