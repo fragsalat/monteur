@@ -20,7 +20,6 @@ class FragmentWrapper implements IFragment {
 
   addEventListener(name: string, callback: Callback): void {
     if (!fragment) {
-      console.warn('Fragment is not initialized yet');
       return;
     }
     fragment.addEventListener(name, callback);
@@ -28,7 +27,6 @@ class FragmentWrapper implements IFragment {
 
   removeEventListener(name: string, callback: Callback): void {
     if (!fragment) {
-      console.warn('Fragment is not initialized yet');
       return;
     }
     fragment.removeEventListener(name, callback);
@@ -36,7 +34,6 @@ class FragmentWrapper implements IFragment {
 
   dispatchEvent(name: string, payload?: unknown): void {
     if (!fragment) {
-      console.warn('Fragment is not initialized yet');
       return;
     }
     fragment.dispatchEvent(name, payload);
@@ -44,7 +41,6 @@ class FragmentWrapper implements IFragment {
 
   waitForEvent(name: string): Promise<any> {
     if (!fragment) {
-      console.warn('Fragment is not initialized yet');
       return Promise.reject();
     }
     return fragment.waitForEvent(name);
