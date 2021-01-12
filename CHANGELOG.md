@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.13](https://github.com/fragsalat/monteur/compare/v0.1.12...v0.1.13) (2021-01-12)
+
+
+### Bug Fixes
+
+* **framed:** Fail init when timing out while waiting for event ([7a45413](https://github.com/fragsalat/monteur/commit/7a4541360ef3a985761d9213b1578ec381e221aa))
+
 ### [0.1.12](https://github.com/fragsalat/monteur/compare/v0.1.11...v0.1.12) (2021-01-12)
 
 
