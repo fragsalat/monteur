@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.12](https://github.com/fragsalat/monteur/compare/v0.1.11...v0.1.12) (2021-01-12)
+
+
+### Bug Fixes
+
+* **framed:** Fixed height not reducing with content ([6e52543](https://github.com/fragsalat/monteur/commit/6e525436ada7d914e14c0b660fcc6ccd8d1b9538))
+
 ### [0.1.11](https://github.com/fragsalat/monteur/compare/v0.1.10...v0.1.11) (2020-11-19)
 
 ### [0.1.10](https://github.com/fragsalat/monteur/compare/v0.1.9...v0.1.10) (2020-11-11)
