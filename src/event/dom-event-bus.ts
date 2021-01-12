@@ -20,7 +20,7 @@ export class DomEventBus implements IEventBus {
   };
 
   public waitForEvent(eventName: string): Promise<any> {
-    return new Promise((resolve) => {
+    return new Promise((resolve, reject) => {
       const removeListener = () => {
         this.removeEventListener(eventName, handler);
         clearTimeout(timeout);
@@ -33,7 +33,7 @@ export class DomEventBus implements IEventBus {
       // Unbind listener when event is not sent
       const timeout = setTimeout(() => {
         removeListener();
-        console.warn(`Event ${eventName} was never sent`);
+        reject(`Event ${eventName} was never sent`);
       }, 5000);
     });
   }

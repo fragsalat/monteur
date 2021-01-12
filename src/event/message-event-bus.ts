@@ -50,7 +50,7 @@ export class MessageEventBus implements IEventBus {
    * @param timeoutMs
    */
   public waitForEvent(eventName: string, timeoutMs = 5000): Promise<any> {
-    return new Promise((resolve) => {
+    return new Promise((resolve, reject) => {
       const removeListener = () => {
         this.removeEventListener(eventName, handler);
         clearTimeout(timeout);
@@ -63,7 +63,7 @@ export class MessageEventBus implements IEventBus {
       // Unbind listener when event is not sent
       const timeout = setTimeout(() => {
         removeListener();
-        console.warn(`Event ${eventName} was never sent`);
+        reject(`Event ${eventName} was never sent`);
       }, timeoutMs);
     });
   }
