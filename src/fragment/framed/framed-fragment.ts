@@ -29,9 +29,13 @@ export const FramedFragment: IFragmentStatic = class extends EventAware implemen
   private checkResize() {
     let height = 0;
     this.interval = setInterval(() => {
-      // Get height of <html> or <body>.
-      // <html> should include margins and paddings may applied to body and is preferred
-      const newHeight = document.querySelector('html')?.scrollHeight || document.body.scrollHeight;
+      // Get sum of heights of all body children + margins on html and body tag
+      const html = document.querySelector('html');
+      const htmlMarginTop = html ? parseInt(window.getComputedStyle(html).marginTop, 10) : 0;
+      const bodyMarginTop = parseInt(window.getComputedStyle(document.body).marginTop, 10);
+      const bodyHeight = Array.from(document.body.children).reduce((height, el) => height + el.scrollHeight, 0);
+      const newHeight = htmlMarginTop + bodyMarginTop + bodyHeight;
+
       if (height !== newHeight) {
         height = newHeight;
         this.event.dispatchEvent('resize', newHeight);
