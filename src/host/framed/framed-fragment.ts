@@ -15,9 +15,11 @@ export class FramedFragment extends HostFragment {
    * @param height Value of CSS property height
    */
   public setHeight(height: string): void {
-    this.frame.style.height = height;
     // Notify fragment about stopping to check for resizing
+    this.event.removeEventListener('resize', this.handleResize);
     this.event.dispatchEvent('disable-resize');
+
+    this.frame.style.height = height;
   }
 
   private handleResize = (newHeight: number) => {
