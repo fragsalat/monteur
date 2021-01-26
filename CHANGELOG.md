@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.15](https://github.com/fragsalat/monteur/compare/v0.1.14...v0.1.15) (2021-01-26)
+
+
+### Features
+
+* **framed:** Added function to set fixed height of iframe ([bdf5eb6](https://github.com/fragsalat/monteur/commit/bdf5eb6f60835b5f412f9ba4fc8294a854c3a8af))
+
 ### [0.1.14](https://github.com/fragsalat/monteur/compare/v0.1.13...v0.1.14) (2021-01-26)
 
 ### [0.1.13](https://github.com/fragsalat/monteur/compare/v0.1.12...v0.1.13) (2021-01-12)
