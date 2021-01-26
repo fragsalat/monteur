@@ -10,6 +10,16 @@ export class FramedFragment extends HostFragment {
     this.event.addEventListener('resize', this.handleResize);
   }
 
+  /**
+   * Sets a fixed height to the iframe and removes automatic scaling
+   * @param height Value of CSS property height
+   */
+  public setHeight(height: string): void {
+    this.frame.style.height = height;
+    // Notify fragment about stopping to check for resizing
+    this.event.dispatchEvent('disable-resize');
+  }
+
   private handleResize = (newHeight: number) => {
     this.frame.style.height = `${newHeight}px`;
   };

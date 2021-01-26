@@ -10,9 +10,6 @@ export const FramedFragment: IFragmentStatic = class extends EventAware implemen
   }
 
   public async initialize(defaultOptions: unknown, initCb: (config: unknown) => void | Promise<void>): Promise<void> {
-    // Remove unnecessary horizontal scroll bar as iframe height will be scaled with the content
-    document.body.style.overflowY = 'hidden';
-
     const fragmentId = parseInt(window.name, 10);
     this.event = new MessageEventBus(fragmentId, window, window.top);
 
@@ -23,10 +20,15 @@ export const FramedFragment: IFragmentStatic = class extends EventAware implemen
     await initCb(config);
 
     this.event.dispatchEvent('initialized');
+
     this.checkResize();
+    this.addEventListener('disable-resize', this.disableResize);
   }
 
   private checkResize() {
+    // Remove unnecessary horizontal scroll bar as iframe height will be scaled with the content
+    document.body.style.overflowY = 'hidden';
+
     let height = 0;
     this.interval = setInterval(() => {
       // Get sum of heights of all body children + margins on html and body tag
@@ -42,6 +44,15 @@ export const FramedFragment: IFragmentStatic = class extends EventAware implemen
       }
     }, 10);
   }
+
+  /**
+   * Clears the interval to check and notify document height
+   */
+  private disableResize = () => {
+    // Allow iframe window to scroll
+    document.body.style.overflowY = 'auto';
+    clearInterval(this.interval);
+  };
 
   public destroy(): void {
     super.destroy();
