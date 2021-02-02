@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.17](https://github.com/fragsalat/monteur/compare/v0.1.16...v0.1.17) (2021-02-02)
+
+
+### Bug Fixes
+
+* **framed:** Increased timeout for initial ready-to-init event ([42458e3](https://github.com/fragsalat/monteur/commit/42458e3308b535227f17b3aa099639b024d6105f))
+
 ### [0.1.16](https://github.com/fragsalat/monteur/compare/v0.1.15...v0.1.16) (2021-01-26)
 
 
