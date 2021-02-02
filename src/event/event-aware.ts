@@ -14,8 +14,8 @@ export abstract class EventAware implements IEventBus {
     return this._event;
   }
 
-  public waitForEvent(eventName: string): Promise<any> {
-    return this.event.waitForEvent(eventName);
+  public waitForEvent(eventName: string, timeout?: number): Promise<any> {
+    return this.event.waitForEvent(eventName, timeout);
   }
 
   public addEventListener(eventName: string, callback: Callback): void {

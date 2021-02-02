@@ -19,7 +19,7 @@ export class DomEventBus implements IEventBus {
     });
   };
 
-  public waitForEvent(eventName: string): Promise<any> {
+  public waitForEvent(eventName: string, timeoutMs = 5000): Promise<any> {
     return new Promise((resolve, reject) => {
       const removeListener = () => {
         this.removeEventListener(eventName, handler);
@@ -34,7 +34,7 @@ export class DomEventBus implements IEventBus {
       const timeout = setTimeout(() => {
         removeListener();
         reject(`Event ${eventName} was never sent`);
-      }, 5000);
+      }, timeoutMs);
     });
   }
 
