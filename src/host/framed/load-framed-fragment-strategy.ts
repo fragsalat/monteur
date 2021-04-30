@@ -14,6 +14,7 @@ export class LoadFramedFragmentStrategy implements ILoadFragmentStrategy {
     frame.scrolling = 'auto';
     frame.name = fragmentId.toString(10);
     frame.src = url;
+    frame.allow = 'clipboard-read; clipboard-write';
     target.appendChild(frame);
 
     const fragment = new FramedFragment(fragmentId, target, frame);
