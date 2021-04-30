@@ -18,12 +18,14 @@ export class Host {
    * @param fragmentUrl Url to the fragment. Should resolve to the index.html
    * @param configCb Will get the defaults from the fragment and have to return initialization / configuration data
    * @param framed Either the fragment will be loaded via iframe or via html
+   * @param permissions Permissions for the iframe, eg. 'clipboard-read; clipboard-write'
    */
   static renderFragment(
     target: Element,
     fragmentUrl: string,
     configCb: ConfigCallback,
-    framed = true
+    framed = true,
+    permissions?: string
   ): Promise<HostFragment> {
     window.fragmentCounter = window.fragmentCounter || 1;
     let strategy: ILoadFragmentStrategy;
@@ -32,6 +34,6 @@ export class Host {
     } else {
       strategy = new LoadUnframedFragmentStrategy();
     }
-    return strategy.initializeAt(window.fragmentCounter++, target, fragmentUrl, configCb);
+    return strategy.initializeAt(window.fragmentCounter++, target, fragmentUrl, configCb, permissions);
   }
 }

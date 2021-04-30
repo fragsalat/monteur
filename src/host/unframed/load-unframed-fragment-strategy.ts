@@ -7,7 +7,8 @@ export class LoadUnframedFragmentStrategy implements ILoadFragmentStrategy {
     _fragmentId: number,
     _target: Element,
     _url: string,
-    _configCb?: (defaults: any) => any
+    _configCb?: (defaults: any) => any,
+    _permissions?: string
   ): Promise<UnframedFragment> {
     return Promise.reject('Not yet implemented');
   }

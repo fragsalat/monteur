@@ -6,7 +6,8 @@ export class LoadFramedFragmentStrategy implements ILoadFragmentStrategy {
     fragmentId: number,
     target: Element,
     url: string,
-    configCb?: (defaults: any) => any
+    configCb?: (defaults: any) => any,
+    permissions?: string
   ): Promise<FramedFragment> {
     const frame = document.createElement('iframe');
     frame.style.width = '100%';
@@ -14,6 +15,7 @@ export class LoadFramedFragmentStrategy implements ILoadFragmentStrategy {
     frame.scrolling = 'auto';
     frame.name = fragmentId.toString(10);
     frame.src = url;
+    if (permissions) frame.allow = permissions;
     target.appendChild(frame);
 
     const fragment = new FramedFragment(fragmentId, target, frame);

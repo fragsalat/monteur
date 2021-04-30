@@ -5,6 +5,7 @@ export interface ILoadFragmentStrategy {
     fragmentId: number,
     target: Element,
     url: string,
-    configCb?: (defaults: any) => any
+    configCb?: (defaults: any) => any,
+    permissions?: string
   ): Promise<HostFragment>;
 }
