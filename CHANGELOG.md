@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.18](https://github.com/fragsalat/monteur/compare/v0.1.17...v0.1.18) (2021-04-30)
+
+
+### Features
+
+* **framed:** Allow clipboard access in iframe ([#1](https://github.com/fragsalat/monteur/issues/1)) ([f49f6c6](https://github.com/fragsalat/monteur/commit/f49f6c6447ff6642ca6f6282be2f9714c75a4b8b))
+
 ### [0.1.17](https://github.com/fragsalat/monteur/compare/v0.1.16...v0.1.17) (2021-02-02)
 
 
