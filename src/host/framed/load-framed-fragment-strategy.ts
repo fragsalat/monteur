@@ -18,22 +18,7 @@ export class LoadFramedFragmentStrategy implements ILoadFragmentStrategy {
     target.appendChild(frame);
 
     const fragment = new FramedFragment(fragmentId, target, frame);
-
-    // Start handshake. Ready for init event can take a bit longer when loading bigger fragments
-    const event = await fragment.waitForEvent('ready-for-init', 20000);
-
-    let config = {};
-    if (typeof configCb === 'function') {
-      config = configCb(event.detail || {});
-    } else if (event.detail) {
-      config = { ...event.detail };
-    }
-
-    // Initialize fragment and pass config to it
-    fragment.dispatchEvent('initialize', config);
-
-    await fragment.waitForEvent('initialized');
-
+    await fragment.initialize(url, configCb);
     return fragment;
   }
 }

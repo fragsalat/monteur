@@ -3,19 +3,20 @@ import { IEventBus, Callback } from './i-event-bus';
 export class DomEventBus implements IEventBus {
   private events: { [eventName: string]: Callback[] };
 
-  constructor(private container: Element) {
+  constructor(private fragmentId: number, private isHost: boolean) {
     this.events = {};
   }
 
   private handleEvent = (event: Event): void => {
-    if (!(event.type in this.events)) {
+    const eventName = (event as CustomEvent).detail.eventName;
+    if (!(eventName in this.events)) {
       console.warn(
         `Potential memory leak. A listener for '${event.type}' is still bound while there is no callback registered`
       );
     }
 
-    this.events[event.type].forEach((callback) => {
-      callback((event as CustomEvent).detail);
+    this.events[eventName].forEach((callback) => {
+      callback((event as CustomEvent).detail.payload);
     });
   };
 
@@ -25,9 +26,9 @@ export class DomEventBus implements IEventBus {
         this.removeEventListener(eventName, handler);
         clearTimeout(timeout);
       };
-      const handler = (event: CustomEvent) => {
+      const handler = (payload: any) => {
         removeListener();
-        resolve(event.detail);
+        resolve(payload);
       };
       this.addEventListener(eventName, handler);
       // Unbind listener when event is not sent
@@ -39,16 +40,22 @@ export class DomEventBus implements IEventBus {
   }
 
   public dispatchEvent(eventName: string, payload?: unknown): void {
-    const event = new CustomEvent(eventName, { detail: payload, bubbles: false });
-    this.container.dispatchEvent(event);
+    const event = new CustomEvent(`monteur-${this.isHost ? 'host' : 'fragment'}-${this.fragmentId}`, {
+      detail: { eventName, payload },
+      bubbles: false,
+    });
+    window.dispatchEvent(event);
   }
 
   public addEventListener(eventName: string, callback: Callback): void {
+    // Start listening for events from fragments
+    if (!Object.keys(this.events).length) {
+      window.addEventListener(`monteur-${this.isHost ? 'fragment' : 'host'}-${this.fragmentId}`, this.handleEvent);
+    }
     if (eventName in this.events) {
       this.events[eventName].push(callback);
     } else {
-      this.events[eventName] = [];
-      this.container.addEventListener(eventName, this.handleEvent);
+      this.events[eventName] = [callback];
     }
   }
 
@@ -60,8 +67,10 @@ export class DomEventBus implements IEventBus {
       // Clear event from list
       if (!this.events[eventName].length) {
         delete this.events[eventName];
-        // Remove event listener, no callback is registered anymore
-        this.container.removeEventListener(eventName, this.handleEvent, true);
+      }
+      // Remove event listener, no callback is registered anymore
+      if (!Object.keys(this.events).length) {
+        window.removeEventListener(`monteur-${this.isHost ? 'fragment' : 'host'}-${this.fragmentId}`, this.handleEvent);
       }
     } else {
       console.warn(`Attempt to remove event listener for '${eventName}' while no listener is registered`);
@@ -69,10 +78,7 @@ export class DomEventBus implements IEventBus {
   }
 
   public destroy(): void {
-    Object.keys(this.events).forEach((eventName: string) => {
-      this.container.removeEventListener(eventName, this.handleEvent, true);
-    });
-
+    window.removeEventListener(`monteur-${this.isHost ? 'fragment' : 'host'}-${this.fragmentId}`, this.handleEvent);
     this.events = {};
   }
 }

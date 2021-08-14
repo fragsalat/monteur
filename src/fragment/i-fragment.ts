@@ -6,5 +6,10 @@ export interface IFragmentStatic {
 }
 
 export interface IFragment extends IEventBus {
-  initialize(defaultOptions: unknown, initCb: (config: unknown) => void | Promise<void>): Promise<void>;
+  url?: string;
+
+  initialize(
+    defaultOptions: unknown,
+    initCb: (config: unknown, container: Element) => void | Promise<void>
+  ): Promise<void>;
 }
