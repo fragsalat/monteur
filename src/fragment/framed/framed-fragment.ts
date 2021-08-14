@@ -4,20 +4,26 @@ import { IFragmentStatic, IFragment } from '../i-fragment';
 
 export const FramedFragment: IFragmentStatic = class extends EventAware implements IFragment {
   private interval?: number;
+  public url?: string;
 
   static isFragment(): boolean {
     return window.location !== window.top.location && !isNaN(parseInt(window.name, 10));
   }
 
-  public async initialize(defaultOptions: unknown, initCb: (config: unknown) => void | Promise<void>): Promise<void> {
+  public async initialize(
+    defaultOptions: unknown,
+    initCb: (config: unknown, container: Element) => void | Promise<void>
+  ): Promise<void> {
     const fragmentId = parseInt(window.name, 10);
     this.event = new MessageEventBus(fragmentId, window, window.top);
 
     this.event.dispatchEvent('ready-for-init', defaultOptions || {});
 
-    const config = await this.event.waitForEvent('initialize');
+    const { url, config } = await this.event.waitForEvent('initialize');
+    // Host tells us under which url we got loaded
+    this.url = url;
 
-    await initCb(config);
+    await initCb(config, document.body);
 
     this.event.dispatchEvent('initialized');
 
