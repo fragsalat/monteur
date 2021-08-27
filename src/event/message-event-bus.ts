@@ -13,9 +13,9 @@ export class MessageEventBus implements IEventBus {
 
   /**
    * A window can only bind listeners to itself but post to other windows.
-   * E.g. Host -> listen on window, post on iframe.contentWindow | Fragment -> listen on window, post of window.top
+   * E.g. Host -> listen on window, post on iframe.contentWindow | Fragment -> listen on window, post of window.parent
    * @param readWindow Will be always window
-   * @param writeWindow Will be iframe.contentWindow or window.top
+   * @param writeWindow Will be iframe.contentWindow or window.parent
    * @param fragmentId Used to identify identify fragments on host window
    */
   constructor(public fragmentId: number, private readWindow: Window, private writeWindow: WindowProxy | null) {
