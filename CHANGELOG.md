@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.19](https://github.com/fragsalat/monteur/compare/v0.1.18...v0.1.19) (2021-08-27)
+
+
+### Features
+
+* **framed:** Use window.parent to nested fragments ([#2](https://github.com/fragsalat/monteur/issues/2)) ([121d70b](https://github.com/fragsalat/monteur/commit/121d70b77d85617e65161589c392039a9df71f0e))
+
 ### [0.1.18](https://github.com/fragsalat/monteur/compare/v0.1.17...v0.1.18) (2021-04-30)
 
 
