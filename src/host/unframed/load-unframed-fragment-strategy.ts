@@ -29,33 +29,29 @@ export class LoadUnframedFragmentStrategy implements ILoadFragmentStrategy {
   }
 
   private copyElements(html: HTMLHtmlElement, target: Element): void {
-    const head = html.querySelector('head');
-    if (head) {
-      this.appendFiltered(
-        head.querySelectorAll('link[rel="stylesheet"], script'),
-        document.querySelector('head') as HTMLHeadElement
-      );
-    }
-    const body = html.querySelectorAll('body > *') || html.children;
-    this.appendFiltered(body, target);
+    this.appendFiltered(html.querySelectorAll('link[rel="stylesheet"]'), document.querySelector('head') as Element);
+    this.appendFiltered(html.querySelectorAll('script'), target);
+    this.appendFiltered(html.querySelectorAll('body > *') || html.children, target);
   }
 
   private appendFiltered(source: NodeListOf<Element>, target: Element): void {
     const holder = document.createDocumentFragment();
     source.forEach((child) => {
-      // TODO filter duplicate / conflicting tags and ignore tags like title etc
+      // Filter out unwanted elements
       if ('monteur-ignore' in (child as HTMLElement).dataset) {
         return;
       }
       const hashCode = this.hashCode(child.outerHTML);
-      //
+      // Todo: implement proper duplicate check with host and fragment html
       if (target.querySelector(`[data-monteur-id="${hashCode}"]`)) {
         return;
       }
+
+      child.setAttribute('data-monteur-id', hashCode);
       holder.appendChild(child);
     });
-    this.scriptExecutor.registerScripts(holder);
 
+    this.scriptExecutor.registerScripts(holder);
     target.appendChild(holder);
   }
 

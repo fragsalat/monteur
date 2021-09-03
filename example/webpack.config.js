@@ -1,7 +1,7 @@
-const {resolve} = require('path');
+const { resolve } = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
-module.exports = ['./host-application', './framed-fragment'].map(path => ({
+module.exports = ['./host-application', './framed-fragment', './unframed-fragment'].map((path) => ({
   mode: 'development',
   // Enable sourcemaps for debugging webpack's output.
   devtool: 'inline-source-map',
@@ -12,13 +12,13 @@ module.exports = ['./host-application', './framed-fragment'].map(path => ({
   resolve: {
     extensions: ['.jsx', '.js'],
     alias: {
-      'monteur': resolve(__dirname, '../dist/module')
-    }
+      monteur: resolve(__dirname, '../dist/module'),
+    },
   },
 
   plugins: [
     new HtmlWebpackPlugin({
-      template: resolve(__dirname, './index.template.html')
+      template: resolve(__dirname, './index.template.html'),
     }),
   ],
 
@@ -29,10 +29,10 @@ module.exports = ['./host-application', './framed-fragment'].map(path => ({
         exclude: /node_modules/,
         use: [
           {
-            loader: 'babel-loader'
-          }
-        ]
+            loader: 'babel-loader',
+          },
+        ],
       },
-    ]
-  }
+    ],
+  },
 }));

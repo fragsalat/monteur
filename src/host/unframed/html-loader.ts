@@ -1,4 +1,6 @@
 export class HtmlLoader {
+  private static cache: { [url: string]: HTMLHtmlElement } = {};
+
   private static fetchResource(url: string) {
     return new Promise<string>((resolve, reject) => {
       const xhr = new XMLHttpRequest();
@@ -40,6 +42,10 @@ export class HtmlLoader {
   }
 
   public static async loadHtml(url: string): Promise<HTMLHtmlElement> {
+    // Clone cached DOM if available
+    if (this.cache[url]) {
+      return Promise.resolve(this.cache[url].cloneNode(true) as HTMLHtmlElement);
+    }
     let html = await this.fetchResource(url);
     html = this.makeUrlsAbsolute(url, html);
 
@@ -47,6 +53,8 @@ export class HtmlLoader {
     const dom = document.createElement('html');
     dom.innerHTML = html;
 
-    return dom;
+    this.cache[url] = dom;
+
+    return this.cache[url].cloneNode(true) as HTMLHtmlElement;
   }
 }

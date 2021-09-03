@@ -1,18 +1,15 @@
 import { IEventBus, Callback } from './i-event-bus';
 
 export class DomEventBus implements IEventBus {
-  private events: { [eventName: string]: Callback[] };
+  private events: { [eventName: string]: Callback[] } = {};
 
-  constructor(private fragmentId: number, private isHost: boolean) {
-    this.events = {};
-  }
+  constructor(private fragmentId: number, private isHost: boolean) {}
 
   private handleEvent = (event: Event): void => {
     const eventName = (event as CustomEvent).detail.eventName;
+    // No listener bound for this event
     if (!(eventName in this.events)) {
-      console.warn(
-        `Potential memory leak. A listener for '${event.type}' is still bound while there is no callback registered`
-      );
+      return;
     }
 
     this.events[eventName].forEach((callback) => {
