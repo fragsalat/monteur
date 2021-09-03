@@ -7,7 +7,7 @@ export const FramedFragment: IFragmentStatic = class extends EventAware implemen
   public url?: string;
 
   static isFragment(): boolean {
-    return window.location !== window.top.location && !isNaN(parseInt(window.name, 10));
+    return window.location !== window.parent.location && !isNaN(parseInt(window.name, 10));
   }
 
   public async initialize(
@@ -15,7 +15,7 @@ export const FramedFragment: IFragmentStatic = class extends EventAware implemen
     initCb: (config: unknown, container: Element) => void | Promise<void>
   ): Promise<void> {
     const fragmentId = parseInt(window.name, 10);
-    this.event = new MessageEventBus(fragmentId, window, window.top);
+    this.event = new MessageEventBus(fragmentId, window, window.parent);
 
     this.event.dispatchEvent('ready-for-init', defaultOptions || {});
 
