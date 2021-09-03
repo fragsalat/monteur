@@ -7,7 +7,7 @@ export function App() {
   return (
     <div>
       <h3>Hi I'm the host application</h3>
-      <div style={{margin: '32px 0'}}>
+      <div style={{ margin: '32px 0' }}>
         <label>
           <input type="radio" name="fragment-type" checked={framed} onChange={() => setFramed(true)} />
           Show framed fragment
@@ -18,11 +18,14 @@ export function App() {
         </label>
       </div>
       <div>
-        <p>
-          Selected value from fragment: {value}
-        </p>
-        <SomeFragment framed={framed} onValueSelected={payload => setValue(payload)} />
+        <p>Selected value from fragment: {value}</p>
+        <div>
+          <SomeFragment name="Berta" id={12} framed={framed} onValueSelected={(payload) => setValue(payload)} />
+        </div>
+        <div>
+          <SomeFragment name="Rudolf" id={9} framed={framed} onValueSelected={(payload) => setValue(payload)} />
+        </div>
       </div>
     </div>
-  )
+  );
 }
