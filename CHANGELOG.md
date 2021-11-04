@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.2.0](https://github.com/fragsalat/monteur/compare/v0.1.19...v0.2.0) (2021-11-04)
+
+
+### Features
+
+* **events:** Added debug logging option to event busses ([54dae3d](https://github.com/fragsalat/monteur/commit/54dae3de08bb5f0223f51911472d0aa7af16d9b7))
+* **unframed:** First implementation of unframed fragment ([851de1e](https://github.com/fragsalat/monteur/commit/851de1ef7e13e9dc8d4961a1712abcc4306e01c4))
+
+
+### Bug Fixes
+
+* **unframed:** Fixed loading of unframed fragment + added caching ([d3cd851](https://github.com/fragsalat/monteur/commit/d3cd851a4b9f4d7e207cf4fcfb1533c730b09423))
+
 ## [0.2.0-rc.0](https://github.com/fragsalat/monteur/compare/v0.1.19...v0.2.0-rc.0) (2021-09-03)
 
 
