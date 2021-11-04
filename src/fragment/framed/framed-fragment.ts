@@ -1,3 +1,4 @@
+import { configureDebugMode } from '../../debug';
 import { EventAware } from '../../event/event-aware';
 import { MessageEventBus } from '../../event/message-event-bus';
 import { IFragmentStatic, IFragment } from '../i-fragment';
@@ -14,6 +15,7 @@ export const FramedFragment: IFragmentStatic = class extends EventAware implemen
     defaultOptions: unknown,
     initCb: (config: unknown, container: Element) => void | Promise<void>
   ): Promise<void> {
+    configureDebugMode(window.frameElement.hasAttribute('data-monteur-debug'));
     const fragmentId = parseInt(window.name, 10);
     this.event = new MessageEventBus(fragmentId, window, window.parent);
 

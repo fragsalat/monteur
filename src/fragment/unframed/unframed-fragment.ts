@@ -1,3 +1,4 @@
+import { configureDebugMode } from '../../debug';
 import { DomEventBus } from '../../event/dom-event-bus';
 import { EventAware } from '../../event/event-aware';
 import { IFragmentStatic, IFragment } from '../i-fragment';
@@ -8,6 +9,10 @@ function getFragmentId(): number | undefined {
     return parseInt(fragmentId, 10);
   }
   return;
+}
+
+function isDebugEnabled(): boolean {
+  return document.currentScript?.parentElement?.hasAttribute('data-monteur-debug') || false;
 }
 
 export const UnframedFragment: IFragmentStatic = class extends EventAware implements IFragment {
@@ -21,6 +26,7 @@ export const UnframedFragment: IFragmentStatic = class extends EventAware implem
     defaultOptions: unknown,
     initCb: (config: unknown, container: Element) => void | Promise<void>
   ): Promise<void> {
+    configureDebugMode(isDebugEnabled());
     const fragmentId = getFragmentId();
     if (!fragmentId) {
       throw new Error('Can not initialize fragment because missing fragment id');

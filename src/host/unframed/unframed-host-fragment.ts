@@ -1,7 +1,7 @@
 import { DomEventBus } from '../../event/dom-event-bus';
 import { HostFragment } from '../host-fragment';
 
-export class UnframedFragment extends HostFragment {
+export class UnframedHostFragment extends HostFragment {
   public constructor(protected fragmentId: number, protected target: Element) {
     super(fragmentId, target);
 

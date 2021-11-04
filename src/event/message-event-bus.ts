@@ -1,3 +1,4 @@
+import { debug } from '../debug';
 import { IEventBus, Callback } from './i-event-bus';
 
 type Payload = any | any[];
@@ -24,6 +25,15 @@ export class MessageEventBus implements IEventBus {
   }
 
   /**
+   * Debug logs a message
+   * @param messages Parts of the messages
+   * @private
+   */
+  private log(...messages: any[]): void {
+    debug(this.writeWindow === window.parent ? `Fragment ${this.fragmentId}` : 'Host', ...messages);
+  }
+
+  /**
    * Handle message events on readWindow and dispatch the payload to all listeners
    * @param event
    */
@@ -35,6 +45,7 @@ export class MessageEventBus implements IEventBus {
       // This event is likely not from monteur
       return;
     }
+    this.log(`received event '${data.name}':`, data.payload);
     // Multiple fragments may posting to the host, check if this event should be handled here
     if (this.fragmentId && this.fragmentId !== data.fragmentId) {
       return;
@@ -50,6 +61,8 @@ export class MessageEventBus implements IEventBus {
    * @param timeoutMs
    */
   public waitForEvent(eventName: string, timeoutMs = 5000): Promise<any> {
+    this.log(`waits for event '${eventName}'`);
+
     return new Promise((resolve, reject) => {
       const removeListener = () => {
         this.removeEventListener(eventName, handler);
@@ -72,6 +85,9 @@ export class MessageEventBus implements IEventBus {
     if (!this.writeWindow) {
       throw new Error('Write window is not defined');
     }
+
+    this.log(`dispatched event '${eventName}':`, payload);
+
     const message = JSON.stringify({ name: eventName, fragmentId: this.fragmentId, payload });
     this.writeWindow.postMessage(message, '*');
   }
