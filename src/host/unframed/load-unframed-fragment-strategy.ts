@@ -1,7 +1,7 @@
 import { ILoadFragmentStrategy } from '../i-load-fragment-strategy';
 import { HtmlLoader } from './html-loader';
 import { ScriptExecutor } from './script-executor';
-import { UnframedFragment } from './unframed-fragment';
+import { UnframedHostFragment } from './unframed-host-fragment';
 
 export class LoadUnframedFragmentStrategy implements ILoadFragmentStrategy {
   scriptExecutor = new ScriptExecutor();
@@ -11,11 +11,15 @@ export class LoadUnframedFragmentStrategy implements ILoadFragmentStrategy {
     fragmentId: number,
     target: Element,
     url: string,
-    configCb?: (defaults: any) => any
-  ): Promise<UnframedFragment> {
+    configCb?: (defaults: any) => any,
+    debug = false
+  ): Promise<UnframedHostFragment> {
     const baseUrl = url.replace(/^(.*)\/$/, '$1');
     // Add fragment id for later event based communication
     target.setAttribute('data-monteur-fragment-id', fragmentId.toString());
+    if (debug) {
+      target.setAttribute('data-monteur-debug', '1');
+    }
     // Fetch and parse html
     const html = await HtmlLoader.loadHtml(baseUrl);
     // Move relevant elements into DOM
@@ -23,7 +27,7 @@ export class LoadUnframedFragmentStrategy implements ILoadFragmentStrategy {
     // Execute java scripts
     this.scriptExecutor.executeScripts();
 
-    const fragment = new UnframedFragment(fragmentId, target);
+    const fragment = new UnframedHostFragment(fragmentId, target);
     await fragment.initialize(baseUrl, configCb);
     return fragment;
   }

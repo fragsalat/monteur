@@ -1,3 +1,4 @@
+import { debug } from '../debug';
 import { IEventBus, Callback } from './i-event-bus';
 
 export class DomEventBus implements IEventBus {
@@ -5,8 +6,13 @@ export class DomEventBus implements IEventBus {
 
   constructor(private fragmentId: number, private isHost: boolean) {}
 
+  private log(...messages: any[]): void {
+    debug(this.isHost ? 'Host' : `Fragment ${this.fragmentId}`, ...messages);
+  }
+
   private handleEvent = (event: Event): void => {
     const eventName = (event as CustomEvent).detail.eventName;
+    this.log(`received event '${eventName}':`, (event as CustomEvent).detail.payload);
     // No listener bound for this event
     if (!(eventName in this.events)) {
       return;
@@ -18,6 +24,8 @@ export class DomEventBus implements IEventBus {
   };
 
   public waitForEvent(eventName: string, timeoutMs = 5000): Promise<any> {
+    this.log(`waits for event '${eventName}'`);
+
     return new Promise((resolve, reject) => {
       const removeListener = () => {
         this.removeEventListener(eventName, handler);
@@ -37,6 +45,8 @@ export class DomEventBus implements IEventBus {
   }
 
   public dispatchEvent(eventName: string, payload?: unknown): void {
+    this.log(`dispatched event '${eventName}':`, payload);
+
     const event = new CustomEvent(`monteur-${this.isHost ? 'host' : 'fragment'}-${this.fragmentId}`, {
       detail: { eventName, payload },
       bubbles: false,

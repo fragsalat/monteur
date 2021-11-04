@@ -1,7 +1,7 @@
 import { MessageEventBus } from '../../event/message-event-bus';
 import { HostFragment } from '../host-fragment';
 
-export class FramedFragment extends HostFragment {
+export class FramedHostFragment extends HostFragment {
   public constructor(protected fragmentId: number, protected target: Element, protected frame: HTMLIFrameElement) {
     super(fragmentId, target);
 
