@@ -1,6 +1,6 @@
 {
   "name": "monteur",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "This library helps constructing micro frontends",
   "main": "dist/main/index.js",
   "typings": "dist/main/index.d.ts",
@@ -30,6 +30,8 @@
     "eslint-plugin-functional": "^3.0.2",
     "eslint-plugin-import": "^2.22.0",
     "eslint-plugin-prettier": "^3.1.4",
+    "jest": "^27.3.1",
+    "jsdom": "^18.0.1",
     "prettier": "^2.1.2",
     "standard-version": "^9.0.0",
     "ts-node": "^9.0.0",

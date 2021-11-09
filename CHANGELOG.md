@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.2.1](https://github.com/fragsalat/monteur/compare/v0.2.0...v0.2.1) (2021-11-09)
+
+
+### Bug Fixes
+
+* **unframed:** Pass serialized data through event dom bus to prevent references ([b901203](https://github.com/fragsalat/monteur/commit/b901203e775cbaf994b141fa3e0b3de95ddcba75))
+
 ## [0.2.0](https://github.com/fragsalat/monteur/compare/v0.1.19...v0.2.0) (2021-11-04)
 
 
