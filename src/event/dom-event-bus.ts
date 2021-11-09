@@ -12,14 +12,16 @@ export class DomEventBus implements IEventBus {
 
   private handleEvent = (event: Event): void => {
     const eventName = (event as CustomEvent).detail.eventName;
-    this.log(`received event '${eventName}':`, (event as CustomEvent).detail.payload);
+    const payload = (event as CustomEvent).detail.payload && JSON.parse((event as CustomEvent).detail.payload);
+
+    this.log(`received event '${eventName}':`, payload);
     // No listener bound for this event
     if (!(eventName in this.events)) {
       return;
     }
 
     this.events[eventName].forEach((callback) => {
-      callback((event as CustomEvent).detail.payload);
+      callback(payload);
     });
   };
 
@@ -48,7 +50,10 @@ export class DomEventBus implements IEventBus {
     this.log(`dispatched event '${eventName}':`, payload);
 
     const event = new CustomEvent(`monteur-${this.isHost ? 'host' : 'fragment'}-${this.fragmentId}`, {
-      detail: { eventName, payload },
+      detail: {
+        eventName,
+        payload: JSON.stringify(payload),
+      },
       bubbles: false,
     });
     window.dispatchEvent(event);
