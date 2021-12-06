@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.2.2](https://github.com/fragsalat/monteur/compare/v0.2.1...v0.2.2) (2021-12-06)
+
+
+### Bug Fixes
+
+* **all:** Added fragment destruction from host ([d7c12b8](https://github.com/fragsalat/monteur/commit/d7c12b8a6b1338441bcf04ad4baadc3e32d9526a))
+
 ### [0.2.1](https://github.com/fragsalat/monteur/compare/v0.2.0...v0.2.1) (2021-11-09)
 
 
