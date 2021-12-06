@@ -17,9 +17,14 @@ function isDebugEnabled(): boolean {
 
 export const UnframedFragment: IFragmentStatic = class extends EventAware implements IFragment {
   public url?: string;
+  public container?: Element;
 
   static isFragment(): boolean {
     return !!getFragmentId();
+  }
+
+  constructor(public destroyCb?: (container: Element) => void) {
+    super();
   }
 
   public async initialize(
@@ -38,9 +43,17 @@ export const UnframedFragment: IFragmentStatic = class extends EventAware implem
     const { url, config } = await this.event.waitForEvent('initialize');
     // Host tells us under which url we got loaded
     this.url = url;
+    this.container = document.currentScript?.parentElement as Element;
 
-    await initCb(config, document.currentScript?.parentElement as Element);
+    await initCb(config, this.container);
 
     this.event.dispatchEvent('initialized');
+  }
+
+  destroy(): void {
+    super.destroy();
+    if (this.destroyCb && this.container) {
+      this.destroyCb(this.container);
+    }
   }
 };

@@ -21,4 +21,9 @@ export abstract class HostFragment extends EventAware {
 
     await this.waitForEvent('initialized');
   }
+
+  destroy(): void {
+    this.dispatchEvent('destroy');
+    super.destroy();
+  }
 }

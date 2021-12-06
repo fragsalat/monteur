@@ -6,9 +6,14 @@ import { IFragmentStatic, IFragment } from '../i-fragment';
 export const FramedFragment: IFragmentStatic = class extends EventAware implements IFragment {
   private interval?: number;
   public url?: string;
+  public container?: Element;
 
   static isFragment(): boolean {
     return window.location !== window.parent.location && !isNaN(parseInt(window.name, 10));
+  }
+
+  constructor(public destroyCb?: (container: Element) => void) {
+    super();
   }
 
   public async initialize(
@@ -24,6 +29,7 @@ export const FramedFragment: IFragmentStatic = class extends EventAware implemen
     const { url, config } = await this.event.waitForEvent('initialize');
     // Host tells us under which url we got loaded
     this.url = url;
+    this.container = document.body;
 
     await initCb(config, document.body);
 
@@ -65,5 +71,9 @@ export const FramedFragment: IFragmentStatic = class extends EventAware implemen
   public destroy(): void {
     super.destroy();
     clearInterval(this.interval);
+
+    if (this.destroyCb && this.container) {
+      this.destroyCb(this.container);
+    }
   }
 };

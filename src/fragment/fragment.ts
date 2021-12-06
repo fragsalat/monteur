@@ -16,14 +16,17 @@ class FragmentWrapper implements IFragment {
 
   async initialize(
     defaultOptions: any,
-    initCb: (config: any, container: Element) => void | Promise<void>
+    initCb: (config: any, container: Element) => void | Promise<void>,
+    destroyCb?: (container: Element) => void
   ): Promise<void> {
     if (FramedFragment.isFragment()) {
-      fragment = new FramedFragment();
+      fragment = new FramedFragment(destroyCb);
     } else {
-      fragment = new UnframedFragment();
+      fragment = new UnframedFragment(destroyCb);
     }
     await fragment.initialize(defaultOptions, initCb);
+    // Host tells fragment when it should get destroyed
+    fragment.addEventListener('destroy', this.destroy.bind(this));
   }
 
   addEventListener(name: string, callback: Callback): void {
