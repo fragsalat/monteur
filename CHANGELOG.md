@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.2.3](https://github.com/fragsalat/monteur/compare/v0.2.2...v0.2.3) (2022-01-20)
+
+
+### Bug Fixes
+
+* **all:** Increased timeout waiting for fragment for slow connections ([6047155](https://github.com/fragsalat/monteur/commit/604715507bb1d66fc83bded8d8b2af0c328b23b5))
+
 ### [0.2.2](https://github.com/fragsalat/monteur/compare/v0.2.1...v0.2.2) (2021-12-06)
 
 
