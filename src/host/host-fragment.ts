@@ -7,7 +7,7 @@ export abstract class HostFragment extends EventAware {
 
   public async initialize(url: string, configCb?: (defaultOptions?: any) => any): Promise<void> {
     // Start handshake. Ready for init event can take a bit longer when loading bigger fragments
-    const event = await this.waitForEvent('ready-for-init', 20000);
+    const event = await this.waitForEvent('ready-for-init', 60000);
 
     let config = {};
     if (typeof configCb === 'function') {
