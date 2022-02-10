@@ -25,5 +25,9 @@ export abstract class HostFragment extends EventAware {
   destroy(): void {
     this.dispatchEvent('destroy');
     super.destroy();
+    // Clear target container to enable re-render
+    while (this.target.children.length) {
+      this.target.removeChild(this.target.children[0]);
+    }
   }
 }
