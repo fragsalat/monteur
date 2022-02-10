@@ -128,4 +128,8 @@ Running `yarn example` will serve the applications on the ports:
 The examples read from the /dist folder. In order to apply library changes either execute `yarn build:module` after each change
 or execute `yarn watch` to build the library on every change.
 
-
+##### Deployment
+1. Commit your changes following the existing commit msg pattern
+2. Push your changes
+3. run `yarn prepare-release`
+4. Execute the command `git push --follow-tags origin main && npm publish`
