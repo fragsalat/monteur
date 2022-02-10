@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.2.4](https://github.com/fragsalat/monteur/compare/v0.2.3...v0.2.4) (2022-02-10)
+
+
+### Bug Fixes
+
+* **unframed:** Clear target container on destroy to allow re-render ([07079c8](https://github.com/fragsalat/monteur/commit/07079c8f99a788c6ae16ba91f7277598e3f70d21))
+
 ### [0.2.3](https://github.com/fragsalat/monteur/compare/v0.2.2...v0.2.3) (2022-01-20)
 
 
