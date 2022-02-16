@@ -42,7 +42,7 @@ export class LoadUnframedFragmentStrategy implements ILoadFragmentStrategy {
     const holder = document.createDocumentFragment();
     source.forEach((child) => {
       // Filter out unwanted elements
-      if ('monteur-ignore' in (child as HTMLElement).dataset) {
+      if ('monteurIgnore' in (child as HTMLElement).dataset) {
         return;
       }
       const hashCode = this.hashCode(child.outerHTML);
