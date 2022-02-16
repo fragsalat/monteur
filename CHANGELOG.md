@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.2.5](https://github.com/fragsalat/monteur/compare/v0.2.4...v0.2.5) (2022-02-16)
+
+
+### Bug Fixes
+
+* **unframed:** Fixed ignoring of elements ([9b1c7d5](https://github.com/fragsalat/monteur/commit/9b1c7d5b5914b8440ae71d01c0ff1b35bbe7ed58))
+
 ### [0.2.4](https://github.com/fragsalat/monteur/compare/v0.2.3...v0.2.4) (2022-02-10)
 
 
